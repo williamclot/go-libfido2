@@ -1,8 +1,10 @@
 package libfido2
 
 /*
-#cgo libfido2static pkg-config: libfido2-static
-#cgo !libfido2static pkg-config: libfido2
+#cgo darwin,amd64 CFLAGS: -I${SRCDIR}/dist/darwin-amd64/include
+#cgo darwin,amd64 LDFLAGS: -framework CoreFoundation -framework IOKit ${SRCDIR}/dist/darwin-amd64/lib/libcrypto.a ${SRCDIR}/dist/darwin-amd64/lib/libcbor.a ${SRCDIR}/dist/darwin-amd64/lib/libfido2.a
+#cgo !darwin,!amd64,libfido2static pkg-config: libfido2-static
+#cgo !darwin,!amd64,!libfido2static pkg-config: libfido2
 
 #include <fido.h>
 #include <fido/credman.h>
