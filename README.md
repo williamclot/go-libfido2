@@ -21,11 +21,14 @@ The `teleport` branch is the default and reflects the library version used by
 Teleport. There is no concept of semantic versioning for the `teleport` branch,
 it rolls forward as Teleport needs it to.
 
-Builds are dynamic by default (Linux and macOS). You may use the
-`libfido2static` build tag to force static builds instead. Both rely on
-`pkg-config` (eg, `pkg-config --cflags --libs libfido2` must resolve correctly).
-Static builds refer to the `libfido2-static` library; users are expected to
-write their own definition for the libfido2-static.pc file in this case.
+macOS/amd64 builds are statically linked using the binaries contained within the
+repo. Run `./make-dist.sh` to generate dist binaries.
+
+Linux and arm64 builds are dynamic by default. You may use the `libfido2static`
+build tag to force static builds instead. Both rely on `pkg-config` (eg,
+`pkg-config --cflags --libs libfido2` must resolve correctly). Static builds
+refer to the `libfido2-static` library; users are expected to write their own
+definition for the libfido2-static.pc file in this case.
 
 You are looking at the `teleport` branch now.
 
