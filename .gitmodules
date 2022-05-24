@@ -4,3 +4,6 @@
 [submodule "third_party/libfido2"]
 	path = third_party/libfido2
 	url = https://github.com/Yubico/libfido2.git
+[submodule "third_party/openssl"]
+	path = third_party/openssl
+	url = https://github.com/openssl/openssl.git
