@@ -3,14 +3,13 @@ set -eu
 
 main() {
   local target=''
-  local os_hardware=''
-  os_hardware="$(uname -s)-$(uname -m)"
-  case "$os_hardware" in
-    Darwin-x86_64)
-      target='dist/darwin-amd64'
+  # "Darwin x86_64" becomes "darwin-x86_64".
+  target="$(uname -sm | tr ' ' '-' | tr '[:upper:]' '[:lower:]')"
+  case "$target" in
+    darwin-x86_64)
       ;;
     *)
-      echo "$0 not implemented for $os_hardware" >&2
+      echo "$0 not implemented for $target" >&2
       exit 1
       ;;
   esac
@@ -21,6 +20,7 @@ main() {
   fi
 
   cd "$(dirname "$0")"
+  git submodule update --init
 
   local tmp=''
   tmp="$(mktemp -d)"
@@ -78,12 +78,13 @@ main() {
   make install
   popd # third_party/libfido2
 
-  rm -fr "$target"
-  mkdir -p "$target/lib"
-  cp -r "$tmp/include" "$target/"
-  cp -r "$tmp/lib"/lib{cbor,crypto,fido2}.a "$target/lib/"
+  local dist="dist/$target"
+  rm -fr "$dist"
+  mkdir -p "$dist/lib"
+  cp -r "$tmp/include" "$dist/"
+  cp -r "$tmp/lib"/lib{cbor,crypto,fido2}.a "$dist/lib/"
 
-  cat >"$target/README" <<EOF
+  cat >"$dist/README" <<EOF
 openssl: $(cd third_party/openssl; git rev-parse HEAD)
 libfido2: $(cd third_party/libfido2; git rev-parse HEAD)
 libcbor: $(cd third_party/libcbor; git rev-parse HEAD)
