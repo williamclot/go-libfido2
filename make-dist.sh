@@ -40,6 +40,7 @@ main() {
   echo 'Building openssl'
   pushd 'third_party/openssl'
   ./config \
+    -mmacosx-version-min=10.12 \
     --prefix="$tmp" \
     --openssldir="$tmp/openssl@1.1" \
     no-shared \
@@ -60,7 +61,9 @@ main() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX="$tmp" \
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-    -DWITH_EXAMPLES=OFF .
+    -DWITH_EXAMPLES=OFF \
+    -G "Unix Makefiles" \
+    .
   make
   make install
   popd # third_party/libcbor
@@ -72,7 +75,9 @@ main() {
     -DBUILD_MANPAGES=OFF \
     -DBUILD_TOOLS=OFF \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX="$tmp"
+    -DCMAKE_INSTALL_PREFIX="$tmp" \
+    -G "Unix Makefiles" \
+    .
   make
   make install
   popd # third_party/libfido2
