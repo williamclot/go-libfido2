@@ -3,10 +3,9 @@ set -eu
 
 main() {
   local target=''
-  # "Darwin x86_64" becomes "darwin-x86_64".
-  target="$(uname -sm | tr ' ' '-' | tr '[:upper:]' '[:lower:]')"
+  target="$(uname -s)-$(uname -m)"
   case "$target" in
-    darwin-x86_64)
+    Darwin-x86_64)
       ;;
     *)
       echo "$0 not implemented for $target" >&2
@@ -24,7 +23,7 @@ main() {
 
   local tmp=''
   tmp="$(mktemp -d)"
-  #shellcheck disable=SC2064  # Early expasion on purpose.
+  #shellcheck disable=SC2064  # Early expansion on purpose.
   trap "rm -fr '$tmp'" EXIT
 
   # Get packages from $tmp, we shouldn't need anything else.
