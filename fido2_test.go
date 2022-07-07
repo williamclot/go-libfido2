@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/keys-pub/go-libfido2"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
+	"github.com/williamclot/go-libfido2"
 )
 
 // TODO(codingllama): Revisit test suite.

@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/keys-pub/go-libfido2"
+	"github.com/williamclot/go-libfido2"
 )
 
 func ExampleDeviceLocations() {
